@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Task Manager • Vanilla JS</title>
+  <link rel="stylesheet" href="src/styles.css">
+</head>
+<body class="light" id="body">
+  <div class="container">
+    <header>
+      <h1>Task Manager</h1>
+      <div class="controls">
+        <input id="search" class="search" type="search" placeholder="Search tasks… (title/description)" />
+        <button id="themeBtn" class="btn ghost" title="Toggle theme">🌙 / ☀️</button>
+      </div>
+      <button id="clearAll" class="btn ghost" title="Clear all tasks">Clear All</button>
+    </header>
+
+    <form id="create" autocomplete="off">
+      <input class="field" id="title" placeholder="Task title" required />
+      <input class="field" id="due" type="date" />
+      <select id="prio">
+        <option value="P2">Priority: Medium</option>
+        <option value="P1">Priority: High</option>
+        <option value="P3">Priority: Low</option>
+      </select>
+      <button class="btn" type="submit">Add Task</button>
+      <textarea id="desc" placeholder="Optional description" style="grid-column: 1 / -1"></textarea>
+    </form>
+
+    <section class="board" id="board" aria-label="Task board">
+      <div class="column" data-status="todo">
+        <h2>To Do <span class="count" id="count-todo">0</span></h2>
+        <div class="task-list" id="todo" aria-label="To Do tasks"></div>
+      </div>
+      <div class="column" data-status="in-progress">
+        <h2>In Progress <span class="count" id="count-in-progress">0</span></h2>
+        <div class="task-list" id="in-progress" aria-label="In Progress tasks"></div>
+      </div>
+      <div class="column" data-status="done">
+        <h2>Done <span class="count" id="count-done">0</span></h2>
+        <div class="task-list" id="done" aria-label="Done tasks"></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Edit dialog -->
+  <dialog id="editDialog">
+    <form method="dialog" id="editForm">
+      <div class="dlg">
+        <h3 style="margin:0 0 8px">Edit Task</h3>
+        <input class="field" id="eTitle" required />
+        <div style="display:grid; grid-template-columns: 1fr 160px; gap:8px; margin-top:8px">
+          <input class="field" id="eDue" type="date" />
+          <select id="ePrio">
+            <option value="P1">High</option>
+            <option value="P2">Medium</option>
+            <option value="P3">Low</option>
+          </select>
+        </div>
+        <textarea id="eDesc" style="margin-top:8px; min-height: 80px" placeholder="Description"></textarea>
+      </div>
+      <div class="footer">
+        <button class="btn ghost" value="cancel">Cancel</button>
+        <button class="btn" value="save">Save</button>
+      </div>
+    </form>
+  </dialog>
+
+  <template id="cardTpl">
+    <article class="card" draggable="true">
+      <div class="title"></div>
+      <div class="desc"></div>
+      <div class="meta">
+        <span class="badge priority"></span>
+        <span class="due"></span>
+      </div>
+      <div class="actions">
+        <button class="icon-btn edit" title="Edit">✏️</button>
+        <button class="icon-btn del" title="Delete">🗑️</button>
+      </div>
+    </article>
+  </template>
+
+  <script src="src/app.js"></script>
+</body>
+</html>
